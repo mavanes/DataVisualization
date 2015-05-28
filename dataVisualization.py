@@ -8,10 +8,12 @@ Created on Wed May 27 10:09:56 2015
 from pymongo import MongoClient
 import matplotlib.pyplot as plt
 from scipy.misc import imread
+import numpy as np
 
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
 import dataStatistics as ds
+import dataAnalysis as da
 
 client = MongoClient()
 db = client['big_data']
@@ -32,7 +34,21 @@ def word_list_yt(mean, std):
             words = words + " " + video["snippet"]["title"]
     return words
 
-def main():
+def create_bargraph(data):
+    N = data.shape[0]
+    ind = np.arange(N)  # the x locations for the groups
+    width = 0.35       # the width of the bars
+    
+    fig, ax = plt.subplots()
+    ax.bar(ind, data, width, color='r')
+    
+    ax.set_ylabel('Relevance')
+    ax.set_title('Relevance by function coefficients')
+    ax.set_xticks(ind+width)
+    ax.set_xticklabels(('fans','duration','date created', 'y-intercept'))
+    plt.savefig('barGraphDM.png', bbox_inches = 'tight', dpi = 600)
+
+def run_dm():
     dm = ds.acquire_dailymotion()
     dmimg = imread("dmlogo.png")
     # Read the whole text.
@@ -46,6 +62,9 @@ def main():
     plt.axis("off")
     plt.savefig('popularWordsDM.png', bbox_inches = 'tight', dpi = 600)
     
+    create_bargraph(da.dm_thetas())
+    
+def run_yt():
     yt = ds.acquire_youtube()
     ytimg = imread("ytlogo.png")
     wc = WordCloud(mask=ytimg)
@@ -55,6 +74,10 @@ def main():
     plt.imshow(wc.recolor(color_func = image_colors))
     plt.axis("off")
     plt.savefig('popularWordsYT.png', bbox_inches = 'tight', dpi = 600)
+    
+def main():
+    run_yt()
+    run_dm()
     
 if __name__ == "__main__":
     main()

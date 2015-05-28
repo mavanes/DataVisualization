@@ -51,7 +51,43 @@ def create_dmarray():
     X = np.array(X)
     Y = np.array(Y)
     return X, Y
+
+def dm_thetas():
+    arr = create_dmarray()
+    X = arr[0]
+    Y = arr[1]
     
+    X = cf.normalize(X)
+    
+    dimX = X.shape  # get dimensions of X as a tuple (rows, columns) 
+    N = dimX[1]  # of columns in X; number of features
+    Theta = np.zeros(N + 1)  # add a column for theta0
+    
+    #Our results
+    print "Cost before gradient descent: " , cf.calculate_cost(X, Y, Theta)
+    Results = cf.gradient_descent(X, Y, Theta, .01, 100)
+    print "Thetas: " , Results[0]
+    Theta = Results[0]
+    return Theta
+
+def yt_thetas():
+    arr = create_ytarray()
+    X = arr[0]
+    Y = arr[1]
+    
+    X = cf.normalize(X)
+    
+    dimX = X.shape  # get dimensions of X as a tuple (rows, columns) 
+    N = dimX[1]  # of columns in X; number of features
+    Theta = np.zeros(N + 1)  # add a column for theta0
+    
+    #Our results
+    print "Cost before gradient descent: " , cf.calculate_cost(X, Y, Theta)
+    Results = cf.gradient_descent(X, Y, Theta, .05, 100)
+    print "Thetas: " , Results[0]
+    Theta = Results[0]
+    return Theta
+
 def dm_main():
     arr = create_dmarray()
     X = arr[0]
