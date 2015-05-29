@@ -14,6 +14,21 @@ for x in range(0, 100):
 replaced = ["\n", ",", ".", "'", '"', "!", "(", ")", ":", ";", "*", "@", 
             "/", "\\", '[', ']', "-", "#"]
 
+def iso_to_seconds(isotime):
+    seconds = 0
+    for i in isotime:
+        if i == 'T':
+            isotime = isotime.split("T")[1]
+        if i == 'H':
+            seconds += (int(isotime.split("H")[0]) * 3600)
+            isotime = isotime.split("H")[0]
+        if i == 'M':
+            seconds += (int(isotime.split("M")[0]) * 60)
+            isotime = isotime.split("M")[0]
+        if i == 'S':
+            seconds += int(isotime.split("S")[0])
+    return seconds
+
 def convert_to_datetime(timestamp):
     print timestamp
     return datetime.datetime.fromtimestamp(int(timestamp)).strftime('%Y-%m-%d %H:%M:%S')
@@ -21,67 +36,81 @@ def convert_to_datetime(timestamp):
 def convert_to_timestamp(date):
     return time.mktime(datetime.datetime.strptime(date, "%Y-%m-%d").timetuple())
 
-def word_count_yt(text):
+def word_count_yt(text, mean, std):
     words = {}
     youtube = db.youtube
+    vidcount = 0
     for video in youtube.find():
-        words_list = video["snippet"][text]
-        for r in replaced:
-            words_list = words_list.replace(r, "")
-        words_list = words_list.replace("_", " ")
-        words_list = words_list.lower().split(" ")
-        for w in words_list:
-            if w not in exclusions:
-                if w in words:
-                    words[w] = words[w] + 1
-                else:
-                    words[w] = 1
+        if int(video["statistics"]["viewCount"]) > (mean + 2 * std):
+            words_list = video["snippet"][text]
+            for r in replaced:
+                words_list = words_list.replace(r, "")
+            words_list = words_list.replace("_", " ")
+            words_list = words_list.lower().split(" ")
+            for w in words_list:
+                if w not in exclusions:
+                    if w in words:
+                        words[w] = words[w] + 1
+                    else:
+                        words[w] = 1
+            vidcount+=1
     count = 0
     for w in sorted(words, key=words.get, reverse=True):
         print "\t", w, words[w]
         count += 1
         if count == 20:
             break
+    return words, vidcount
 
-def word_count_dailymotion():            
+def word_count_dailymotion(mean, std):            
     words = {}
     dailymotion = db.dailymotion
+    vidcount = 0
     for video in dailymotion.find():
-        words_list = video["title"]
-        for r in replaced:
-            words_list = words_list.replace(r, "")
-        words_list = words_list.replace("_", " ")
-        words_list = words_list.lower().split(" ")
-        for w in words_list:
-            if w not in exclusions:
-                if w in words:
-                    words[w] = words[w] + 1
-                else:
-                    words[w] = 1
+        if video["views_total"] > (mean + 2 * std):
+            words_list = video["title"]
+            for r in replaced:
+                words_list = words_list.replace(r, "")
+            words_list = words_list.replace("_", " ")
+            words_list = words_list.lower().split(" ")
+            for w in words_list:
+                if w not in exclusions:
+                    if w in words:
+                        words[w] = words[w] + 1
+                    else:
+                        words[w] = 1
+            vidcount += 1
     count = 0
     for w in sorted(words, key=words.get, reverse=True):
         print "\t",w, words[w]
         count += 1
         if count == 20:
             break
+    return words, vidcount
 
 def acquire_youtube():
     views = list()
     dates = list()
+    definition = list()
+    durations = list()
     youtube = db.youtube
     for videos in youtube.find():
         views.append(int(videos["statistics"]["viewCount"]))
         dates.append(convert_to_timestamp((videos["snippet"]["publishedAt"]).split("T")[0]))
-    return (views, dates)
+        definition.append(videos["contentDetails"]["definition"])
+        durations.append(iso_to_seconds(videos["contentDetails"]["duration"]))
+    return (views, dates, definition, durations)
 
 def acquire_dailymotion():
     views = list()
     dates = list()
+    durations = list()
     dailymotion = db.dailymotion
     for videos in dailymotion.find():
         views.append(int(videos["views_total"]))
         dates.append(int(videos["created_time"]))
-    return (views, dates)
+        durations.append(int(videos["duration"]))
+    return (views, dates, durations)
     
 def mean(data):
     return sum(data)/len(data)

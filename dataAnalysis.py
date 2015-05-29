@@ -19,6 +19,21 @@ db = client.big_data
 yt = db.youtube
 dm = db.dailymotion
 
+def iso_to_seconds(isotime):
+    seconds = 0
+    for i in isotime:
+        if i == 'T':
+            isotime = isotime.split("T")[1]
+        if i == 'H':
+            seconds += (int(isotime.split("H")[0]) * 3600)
+            isotime = isotime.split("H")[0]
+        if i == 'M':
+            seconds += (int(isotime.split("M")[0]) * 60)
+            isotime = isotime.split("M")[0]
+        if i == 'S':
+            seconds += int(isotime.split("S")[0])
+    return seconds
+
 def convert_to_timestamp(date):
     return time.mktime(datetime.datetime.strptime(date, "%Y-%m-%d").timetuple())
 
@@ -28,6 +43,7 @@ def create_ytarray():
     results = yt.find()
     for doc in results:
         entry = []
+        entry.append(iso_to_seconds(doc["contentDetails"]["duration"]))
         entry.append(convert_to_timestamp((doc["snippet"]["publishedAt"]).split("T")[0]))
         X.append(entry)
         Y.append(int(doc["statistics"]["viewCount"]))
@@ -173,5 +189,5 @@ def yt_main():
 
 
 if __name__ == '__main__':
-    dm_main()
-    #yt_main()
+    #dm_main()
+    yt_main()
