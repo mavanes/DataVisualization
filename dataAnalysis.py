@@ -84,6 +84,7 @@ def dm_thetas():
     Results = cf.gradient_descent(X, Y, Theta, .01, 100)
     print "Thetas: " , Results[0]
     Theta = Results[0]
+    print "Cost after gradient descent: ", cf.calculate_cost(X, Y, Theta)
     return Theta
 
 def yt_thetas():
@@ -102,6 +103,7 @@ def yt_thetas():
     Results = cf.gradient_descent(X, Y, Theta, .05, 100)
     print "Thetas: " , Results[0]
     Theta = Results[0]
+    print "Cost after gradient descent: ", cf.calculate_cost(X, Y, Theta)
     return Theta
 
 def dm_main():
@@ -189,5 +191,5 @@ def yt_main():
 
 
 if __name__ == '__main__':
-    #dm_main()
-    yt_main()
+    dm_main()
+    #yt_main()

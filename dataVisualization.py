@@ -57,8 +57,10 @@ def create_dualbargraph(data1, data2, labels, output):
     width = 0.35       # the width of the bars
     
     fig, ax = plt.subplots()
-    ax.bar(ind, data1, width, color='r')
-    ax.bar(ind+width, data2, width, color='g')
+    rects1 = ax.bar(ind, data1, width, color='r')
+    rects2 = ax.bar(ind+width, data2, width, color='g')
+    
+    ax.legend( (rects1[0], rects2[0]), ('Top Videos', 'All Videos') )
     
     ax.set_ylabel('Frequency')
     ax.set_title('Word Use Comparison')
@@ -130,8 +132,8 @@ def run_yt():
     create_bargraph(Theta,('duration', 'date created', 'y-intercept'), 'barGraphYT.png')
     
 def main():
-    run_yt()
-    #run_dm()
+    #run_yt()
+    run_dm()
     
     
 if __name__ == "__main__":
