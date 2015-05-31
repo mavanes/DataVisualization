@@ -1,25 +1,228 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-</head>
-<body>
-	<table>
-		<tr>
-			<th>Dailymotion</th>
-			<th>Youtube</th>
-		</tr>
-		<tr>
-			<td><img src = 'popularWordsDM.png' width = '100%'></td>
-			<td><img src = 'popularWordsYT.png' width = '100%'></td>
-		</tr>
-		<tr>
-			<td><img src = 'wordUseCompDM.png' width = '100%'></td>
-			<td><img src = 'wordUseCompYT.png' width = '100%'></td>
-		</tr>
-		<tr>
-			<td><img src = 'barGraphDM.png' width = '100%'></td>
-			<td><img src = 'barGraphYT.png' width = '100%'></td>
-		</tr>
-	</table>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Online Video Popularity</title>
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="css/stylish-portfolio.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <!-- Navigation -->
+        <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+        <nav id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+                <li class="sidebar-brand">
+                    <a href="#top" onclick="$(&quot;#menu-close&quot;).click();">Video Popularity</a>
+                </li>
+                <li>
+                    <a href="#top" onclick="$(&quot;#menu-close&quot;).click();">Home</a>
+                </li>
+                <li>
+                    <a href="#wordcloud" onclick="$(&quot;#menu-close&quot;).click();">Word Cloud</a>
+                </li>
+                <li>
+                    <a href="#wordcount" onclick="$(&quot;#menu-close&quot;).click();">Word Count</a>
+                </li>
+                <li>
+                    <a href="#relevance" onclick="$(&quot;#menu-close&quot;).click();">Relevance Analysis</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Header -->
+        <header id="top" class="header">
+            <div class="text-vertical-center">
+                <div class="col-md-6 col-md-offset-3">
+                    <!--<div class="panel panel-default">
+                        <div class="panel-body">-->
+                    <h1>Online Video Popularity</h1>
+                    <br>
+                    <a href="#wordcloud" class="btn btn-dark btn-lg">Proceed</a>
+                </div>
+            </div>
+        </header>
+        <!-- WordCloud -->
+        <section id="wordcloud" class="wordcloud bg-info">
+            <div class="container">
+                <div class="row">
+                    <br>
+                    <br>
+                    <div class="col-md-6 text-center">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3>DailyMotion</h3>
+                            </div>
+                            <div class="panel-body">
+                                <img src="popularWordsDM.png" width="100%" height="450px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h3>YouTube</h3>
+                            </div>
+                            <div class="panel-body">
+                                <img src="popularWordsYT.png" width="100%" height="450px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-vertical-bottom">
+                        <div class="col-md-12 text-center">
+                            <a href="#wordcount" class="btn btn-dark btn-lg">Go To Word Count</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <!-- /.container -->
+        </section>
+        <!-- Services -->
+        <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+        <section id="wordcount" class="wordcount bg-info">
+            <br>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h2>DailyMotion</h2>
+                            </div>
+                            <div class="panel-body">
+                                <img src="wordUseCompDM.png" width="100%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h2>YouTube</h2>
+                            </div>
+                            <div class="panel-body">
+                                <img src="wordUseCompYT.png" width="100%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-vertical-bottom">
+                        <div class="col-md-12 text-center">
+                            <a href="#relevance" class="btn btn-dark btn-lg">Go To Relevance Analysis</a>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
+        </section>
+        <section id="relevance" class="relevance bg-info">
+            <br>
+            <br>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h2>DailyMotion</h2>
+                            </div>
+                            <div class="panel-body">
+                                <img src="barGraphDM.png" width="100%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h2>YouTube</h2>
+                            </div>
+                            <div class="panel-body">
+                                <img src="barGraphYT.png" width="100%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-vertical-bottom">
+                        <div class="col-md-12 text-center">
+                            <a href="#Top" class="btn btn-dark btn-lg">Go Back to the Top</a>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    &nbsp;
+                </div>
+                <!-- /.container -->
+            </div>
+        </section>
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script>
+            // Closes the sidebar menu
+            $("#menu-close").click(function(e) {
+                e.preventDefault();
+                $("#sidebar-wrapper").toggleClass("active");
+            });
+            
+            // Opens the sidebar menu
+            $("#menu-toggle").click(function(e) {
+                e.preventDefault();
+                $("#sidebar-wrapper").toggleClass("active");
+            });
+            
+            // Scrolls to the selected menu item on the page
+            $(function() {
+                $('a[href*=#]:not([href=#])').click(function() {
+                    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+            
+                        var target = $(this.hash);
+                        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                        if (target.length) {
+                            $('html,body').animate({
+                                scrollTop: target.offset().top
+                            }, 1000);
+                            return false;
+                        }
+                    }
+                });
+            });
+        </script>
+    </body>
 </html>
